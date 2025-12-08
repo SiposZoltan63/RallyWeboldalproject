@@ -23,9 +23,46 @@
             min-height: 100vh;
         }
 
-        .menu {
-            background-color: red;
-        }
+        .felso {
+      background-color: rgba(51, 51, 51, 0.8);
+      border-radius: 0 0 10px 10px;
+      padding: 10px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.4);
+    }
+
+    .felso h1 {
+      color: red;
+      text-align: center;
+      margin: 0;
+    }
+
+    /* Navigáció */
+    #ulb {
+      list-style-type: none;
+      padding: 0;
+      margin: 10px 0 0 0;
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .lib {
+      margin: 5px;
+    }
+
+    .lib a {
+      text-decoration: none;
+      color: white;
+      padding: 8px 12px;
+      display: block;
+      background-color: #555;
+      border-radius: 8px;
+      transition: background-color 0.3s;
+    }
+
+    .lib a:hover {
+      background-color: #777;
+    }
 
         footer {
             margin-top: auto; /* lentre tolja */
@@ -42,11 +79,13 @@
     </style>
 </head>
 <body>
-    <div class="menu">
-        <a href="https://siposzoltan63.github.io/RallyWeboldalproject/index.html">Főoldal</a>
-        ||
-        <a href="https://siposzoltan63.github.io/RallyWeboldalproject/motoreshajtaslanc.html">Motor és hajtáslánc</a>
-    </div>
+    <div class="felso">
+    <h1>Főoldal</h1>
+    <ul id="ulb">
+      <li class="lib"><a href="https://siposzoltan63.github.io/RallyWeboldalproject/index.html">Főoldal</a></li>
+      <li class="lib"><a href="https://siposzoltan63.github.io/RallyWeboldalproject/motoreshajtaslanc.html">Motor és hajtáslánc</a></li>
+    </ul>
+  </div>  
 
     <footer>
         <h3>Leírás</h3>
@@ -55,4 +94,5 @@
     </footer>
 </body>
 </html>
+
 
