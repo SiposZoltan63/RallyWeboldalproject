@@ -5,26 +5,49 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Főoldal</title>
     <style>
-        body {
+        html, body {
+            height: 100%;
             margin: 0;
+        }
+
+        body {
             background-image: url("img/rally.jpg");
             background-repeat: no-repeat;
             background-size: cover;
             background-position: center 20%;
+            display: flex;
+            flex-direction: column;
         }
-        .menu
-        {
+
+        .menu {
             background-color: red;
+        }
+
+        footer {
+            margin-top: auto; /* lentre tolja */
+            background-color: rgba(0,0,0,0.6);
+            color: white;
+            text-align: center;
+            padding: 15px;
+            font-size: 18px;
+        }
+        #email
+        {
+            text-align: right;
         }
     </style>
 </head>
 <body>
     <div class="menu">
-    <a href="https://siposzoltan63.github.io/RallyWeboldalproject/index.html">Főoldal</a>
-    ||
-    <a href="https://siposzoltan63.github.io/RallyWeboldalproject/motoreshajtaslanc.html">Motor és hajtáslánc</a>
+        <a href="https://siposzoltan63.github.io/RallyWeboldalproject/index.html">Főoldal</a>
+        ||
+        <a href="https://siposzoltan63.github.io/RallyWeboldalproject/motoreshajtaslanc.html">Motor és hajtáslánc</a>
     </div>
+
+    <footer>
+        <h3>Leírás</h3>
+        Ez a weboldal a rally autókhoz árul alkatrészeket.
+        <div id="email">Üzenet küldése: <a href="mailto:valami@email.hu">siposz@kkszki.hu</a></div>
+    </footer>
 </body>
 </html>
-
-
