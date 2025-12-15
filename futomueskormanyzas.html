@@ -1,81 +1,174 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="hu">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Futómű és kormányzás</title>
+
     <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-image: url("img/rally.jpg");
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            min-height: 100vh;
+        }
+
+        .felso {
+            background-color: rgba(51, 51, 51, 0.8);
+            border-radius: 0 0 10px 10px;
+            padding: 10px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.4);
+        }
+
+        .felso h1 {
+            color: red;
+            text-align: center;
+            margin: 0;
+        }
+
+        #ulb {
+            list-style-type: none;
+            padding: 0;
+            margin: 10px 0 0 0;
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .lib {
+            margin: 5px;
+        }
+
+        .lib a {
+            text-decoration: none;
+            color: white;
+            padding: 8px 12px;
+            display: block;
+            background-color: #555;
+            border-radius: 8px;
+            transition: background-color 0.3s;
+        }
+
+        .lib a:hover {
+            background-color: #777;
+        }
+
+        /* Tartalom */
         .container {
             display: flex;
             gap: 20px;
+            padding: 20px;
         }
 
         .engineblocks, .cylinderheads {
             color: white;
-            background-color: black;
+            background-color: rgba(0,0,0,0.8);
             width: 200px;
             text-align: center;
             padding: 10px;
+            border-radius: 10px;
         }
 
         .engineblocks img,
         .cylinderheads img {
-            display: block;
-            margin: 0 auto;
             width: 100%;
+            border-radius: 5px;
         }
-        .felso {
-      background-color: rgba(51, 51, 51, 0.8);
-      border-radius: 0 0 10px 10px;
-      padding: 10px;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.4);
-    }
 
-    .felso h1 {
-      color: red;
-      text-align: center;
-      margin: 0;
-    }
+        /* Kosár */
+        #cart {
+            position: fixed;
+            top: 90px;
+            right: 20px;
+            width: 260px;
+            background-color: rgba(0, 0, 0, 0.85);
+            color: white;
+            border-radius: 10px;
+            padding: 15px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.6);
+            display: none;
+            z-index: 1000;
+        }
 
-    #ulb {
-      list-style-type: none;
-      padding: 0;
-      margin: 10px 0 0 0;
-      display: flex;
-      justify-content: center;
-      flex-wrap: wrap;
-    }
+        #cart h3 {
+            margin-top: 0;
+            text-align: center;
+            color: red;
+        }
 
-    .lib {
-      margin: 5px;
-    }
+        #cart ul {
+            list-style-type: none;
+            padding: 0;
+        }
 
-    .lib a {
-      text-decoration: none;
-      color: white;
-      padding: 8px 12px;
-      display: block;
-      background-color: #555;
-      border-radius: 8px;
-      transition: background-color 0.3s;
-    }
+        #cart ul li {
+            padding: 6px 0;
+            border-bottom: 1px solid #555;
+        }
 
-    .lib a:hover {
-      background-color: #777;
-    }
+        #cart button {
+            width: 100%;
+            margin-top: 10px;
+            padding: 8px;
+            background-color: red;
+            border: none;
+            color: white;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        #cart button:hover {
+            background-color: darkred;
+        }
     </style>
 </head>
+
 <body>
+
     <div class="felso">
-    <h1>Futómű és kormányozás</h1>
-    <ul id="ulb">
-      <li class="lib"><a href="https://siposzoltan63.github.io/RallyWeboldalproject/index.html">Főoldal</a></li>
-      <li class="lib"><a href="https://siposzoltan63.github.io/RallyWeboldalproject/motoreshajtaslanc.html">Motor és hajtáslánc</a></li>
-      <li class="lib"><a class="active" href="https://siposzoltan63.github.io/RallyWeboldalproject/futomueskormanyzas.html">Futómű és kormányzás</a></li>
-    </ul>
-  </div> 
+        <h1>Futómű és kormányzás</h1>
+        <ul id="ulb">
+            <li class="lib"><a href="index.html">Főoldal</a></li>
+            <li class="lib"><a href="motoreshajtaslanc.html">Motor és hajtáslánc</a></li>
+            <li class="lib"><a href="futomueskormanyzas.html">Futómű és kormányzás</a></li>
+            <li class="lib"><a href="#" onclick="toggleCart()">🛒 Kosár</a></li>
+        </ul>
+    </div>
+
+    <!-- Tartalom példa -->
+    <div class="container">
+        <div class="engineblocks">
+            <h3>Lengéscsillapító</h3>
+            <img src="img/lenges.jpg" alt="">
+            <p>Verseny futómű</p>
+        </div>
+
+        <div class="cylinderheads">
+            <h3>Kormánymű</h3>
+            <img src="img/kormany.jpg" alt="">
+            <p>Precíz irányítás</p>
+        </div>
+    </div>
+
+    <!-- Kosár -->
+    <div id="cart">
+        <h3>Kosár tartalma</h3>
+        <ul id="cart-items">
+            <li>Lengéscsillapító</li>
+            <li>Kormánymű</li>
+        </ul>
+        <button onclick="toggleCart()">Bezárás</button>
+    </div>
+
+    <script>
+        function toggleCart() {
+            const cart = document.getElementById("cart");
+            cart.style.display = (cart.style.display === "block") ? "none" : "block";
+        }
+    </script>
+
 </body>
-
 </html>
-
-
