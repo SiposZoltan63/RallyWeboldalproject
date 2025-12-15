@@ -1,140 +1,140 @@
 <!DOCTYPE html>
 <html lang="hu">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Motor és hajtáslánc</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Motor és hajtáslánc</title>
+<style>
+    body {
+        margin: 0;
+        font-family: Arial, sans-serif;
+        background-image: url("img/rally.jpg");
+        background-size: cover;
+        background-position: center;
+        background-attachment: fixed;
+    }
 
-    <style>
-        body {
-            margin: 0;
-            font-family: Arial, sans-serif;
-            background-image: url("img/rally.jpg");
-            background-size: cover;
-            background-position: center;
-            background-attachment: fixed;
-        }
+    .felso {
+        background-color: rgba(51, 51, 51, 0.8);
+        border-radius: 0 0 10px 10px;
+        padding: 10px;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.4);
+    }
 
-        .felso {
-            background-color: rgba(51, 51, 51, 0.8);
-            border-radius: 0 0 10px 10px;
-            padding: 10px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.4);
-        }
+    .felso h1 {
+        color: red;
+        text-align: center;
+        margin: 0;
+    }
 
-        .felso h1 {
-            color: red;
-            text-align: center;
-            margin: 0;
-        }
+    #ulb {
+        list-style-type: none;
+        padding: 0;
+        margin: 10px 0 0 0;
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+    }
 
-        #ulb {
-            list-style-type: none;
-            padding: 0;
-            margin: 10px 0 0 0;
-            display: flex;
-            justify-content: center;
-            flex-wrap: wrap;
-        }
+    .lib {
+        margin: 5px;
+    }
 
-        .lib {
-            margin: 5px;
-        }
+    .lib a {
+        text-decoration: none;
+        color: white;
+        padding: 8px 12px;
+        display: block;
+        background-color: #555;
+        border-radius: 8px;
+    }
 
-        .lib a {
-            text-decoration: none;
-            color: white;
-            padding: 8px 12px;
-            display: block;
-            background-color: #555;
-            border-radius: 8px;
-        }
+    .lib a:hover {
+        background-color: #777;
+    }
 
-        .lib a:hover {
-            background-color: #777;
-        }
+    .container {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 20px;
+        padding: 20px;
+    }
 
-        .container {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 20px;
-            padding: 20px;
-        }
+    .engineblocks, .cylinderheads {
+        color: white;
+        background-color: rgba(0,0,0,0.85);
+        width: 220px;
+        text-align: center;
+        padding: 10px;
+        border-radius: 10px;
+    }
 
-        .engineblocks, .cylinderheads {
-            color: white;
-            background-color: rgba(0,0,0,0.85);
-            width: 220px;
-            text-align: center;
-            padding: 10px;
-            border-radius: 10px;
-        }
+    .engineblocks img,
+    .cylinderheads img {
+        width: 100%;
+        border-radius: 5px;
+    }
 
-        .engineblocks img,
-        .cylinderheads img {
-            width: 100%;
-            border-radius: 5px;
-        }
+    input[type="button"] {
+        margin-top: 10px;
+        padding: 8px;
+        width: 100%;
+        background-color: red;
+        border: none;
+        color: white;
+        border-radius: 5px;
+        cursor: pointer;
+    }
 
-        input[type="button"] {
-            margin-top: 10px;
-            padding: 8px;
-            width: 100%;
-            background-color: red;
-            border: none;
-            color: white;
-            border-radius: 5px;
-            cursor: pointer;
-        }
+    input[type="button"]:hover {
+        background-color: darkred;
+    }
 
-        input[type="button"]:hover {
-            background-color: darkred;
-        }
+    /* Kosár */
+    #cart {
+        position: fixed;
+        top: 90px;
+        right: 20px;
+        width: 300px;
+        background-color: rgba(0,0,0,0.9);
+        color: white;
+        border-radius: 10px;
+        padding: 15px;
+        display: none;
+        z-index: 1000;
+    }
 
-        /* Kosár */
-        #cart {
-            position: fixed;
-            top: 90px;
-            right: 20px;
-            width: 280px;
-            background-color: rgba(0,0,0,0.9);
-            color: white;
-            border-radius: 10px;
-            padding: 15px;
-            display: none;
-            z-index: 1000;
-        }
+    #cart h3 {
+        margin-top: 0;
+        text-align: center;
+        color: red;
+    }
 
-        #cart h3 {
-            margin-top: 0;
-            text-align: center;
-            color: red;
-        }
+    #cart ul {
+        list-style: none;
+        padding: 0;
+        max-height: 400px;
+        overflow-y: auto;
+    }
 
-        #cart ul {
-            list-style: none;
-            padding: 0;
-        }
+    #cart ul li {
+        border-bottom: 1px solid #555;
+        padding: 6px 0;
+        font-size: 14px;
+    }
 
-        #cart ul li {
-            border-bottom: 1px solid #555;
-            padding: 6px 0;
-            font-size: 14px;
-        }
-
-        #cart button {
-            width: 100%;
-            margin-top: 10px;
-            padding: 8px;
-            background-color: red;
-            border: none;
-            color: white;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-    </style>
+    #cart button {
+        width: 100%;
+        margin-top: 10px;
+        padding: 8px;
+        background-color: red;
+        border: none;
+        color: white;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+</style>
 </head>
-
 <body>
 
 <div class="felso">
@@ -151,34 +151,72 @@
 
     <div class="engineblocks">
         <h3>V8 Motorblokk</h3>
-        <img src="img/imgengineblocks/v8engineblock.jpg">
+        <img src="img/imgengineblocks/v8engineblock.jpg" alt="v8engineblock">
         <p>2 170 000 Ft</p>
-        <input type="button" value="Kosárba"
-               onclick="addToCart('V8 Motorblokk – 2 170 000 Ft')">
+        <input type="button" value="Kosárba" onclick="addToCart('V8 Motorblokk – 2 170 000 Ft')">
     </div>
 
     <div class="cylinderheads">
         <h3>V8 Hengerfej</h3>
-        <img src="img/imgcylinderheads/v8cylinderhead.png">
+        <img src="img/imgcylinderheads/v8cylinderhead.png" alt="v8cylinderhead">
         <p>210 795 Ft</p>
-        <input type="button" value="Kosárba"
-               onclick="addToCart('V8 Hengerfej – 210 795 Ft')">
+        <input type="button" value="Kosárba" onclick="addToCart('V8 Hengerfej – 210 795 Ft')">
     </div>
 
     <div class="cylinderheads">
         <h3>V8 Turbófeltöltő</h3>
-        <img src="img/imgturbocharger/turbofeltolto.jpg">
+        <img src="img/imgturbocharger/turbofeltolto.jpg" alt="v8turbocharger">
         <p>178 074 Ft</p>
-        <input type="button" value="Kosárba"
-               onclick="addToCart('V8 Turbófeltöltő – 178 074 Ft')">
+        <input type="button" value="Kosárba" onclick="addToCart('V8 Turbófeltöltő – 178 074 Ft')">
+    </div>
+
+    <div class="cylinderheads">
+        <h3>V8 Leömlő (kipufogó kollektor)</h3>
+        <img src="img/Downpipe (exhaust manifold)/Downpipe(exhaustmanifold).jpg" alt="Downpipe">
+        <p>171 960 Ft</p>
+        <input type="button" value="Kosárba" onclick="addToCart('V8 Leömlő – 171 960 Ft')">
+    </div>
+
+    <div class="cylinderheads">
+        <h3>Jaguar F-type Intercooler</h3>
+        <img src="img/Intercooler/jaguarFtypeChargeCoolerIntercooler.jpg" alt="Intercooler">
+        <p>282 726 Ft</p>
+        <input type="button" value="Kosárba" onclick="addToCart('Jaguar F-type Intercooler – 282 726 Ft')">
+    </div>
+
+    <div class="cylinderheads">
+        <h3>Sports Air Filter</h3>
+        <img src="img/Air filter sports air filter/sportsairfilter.jpg" alt="Air Filter">
+        <p>47 720 Ft</p>
+        <input type="button" value="Kosárba" onclick="addToCart('Sports Air Filter – 47 720 Ft')">
+    </div>
+
+    <div class="cylinderheads">
+        <h3>V8 Olajhűtő</h3>
+        <img src="img/Olajhuto/v8Olajhuto.jpg" alt="Olajhűtő">
+        <p>52 450 Ft</p>
+        <input type="button" value="Kosárba" onclick="addToCart('V8 Olajhűtő – 52 450 Ft')">
     </div>
 
     <div class="cylinderheads">
         <h3>Sport kuplung</h3>
-        <img src="img/kuplungok/Sportkuplung.jpg">
+        <img src="img/kuplungok/Sportkuplung.jpg" alt="Sport kuplung">
         <p>90 178 Ft</p>
-        <input type="button" value="Kosárba"
-               onclick="addToCart('Sport kuplung – 90 178 Ft')">
+        <input type="button" value="Kosárba" onclick="addToCart('Sport kuplung – 90 178 Ft')">
+    </div>
+
+    <div class="cylinderheads">
+        <h3>Sebességváltó (dogbox, szekvenciális)</h3>
+        <img src="img/gearboxs/samsomasszekvencialisvalto.jpg" alt="Sebességváltó">
+        <p>5 050 000 Ft</p>
+        <input type="button" value="Kosárba" onclick="addToCart('Sebességváltó – 5 050 000 Ft')">
+    </div>
+
+    <div class="cylinderheads">
+        <h3>Differenciálmű (LSD)</h3>
+        <img src="img/Differencialmu(LSD)/Differencialmu(LSD).jpg" alt="Differenciálmű">
+        <p>688 720 Ft</p>
+        <input type="button" value="Kosárba" onclick="addToCart('Differenciálmű – 688 720 Ft')">
     </div>
 
 </div>
@@ -191,17 +229,17 @@
 </div>
 
 <script>
-    function toggleCart() {
-        const cart = document.getElementById("cart");
-        cart.style.display = (cart.style.display === "block") ? "none" : "block";
-    }
+function toggleCart() {
+    const cart = document.getElementById("cart");
+    cart.style.display = (cart.style.display === "block") ? "none" : "block";
+}
 
-    function addToCart(item) {
-        const list = document.getElementById("cart-items");
-        const li = document.createElement("li");
-        li.textContent = item;
-        list.appendChild(li);
-    }
+function addToCart(item) {
+    const list = document.getElementById("cart-items");
+    const li = document.createElement("li");
+    li.textContent = item;
+    list.appendChild(li);
+}
 </script>
 
 </body>
