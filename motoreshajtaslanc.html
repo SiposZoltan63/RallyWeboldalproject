@@ -1,250 +1,260 @@
 <!DOCTYPE html>
 <html lang="hu">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Motor és hajtáslánc</title>
-<style>
-    body {
-        margin: 0;
-        font-family: Arial, sans-serif;
-        background-image: url("img/rally.jpg");
-        background-size: cover;
-        background-position: center;
-        background-attachment: fixed;
-    }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Motor és hajtáslánc - Webshop</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-image: url("img/rally.jpg");
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            background-color: #1a1a1a;
+        }
 
-    .felso {
-        background-color: rgba(51, 51, 51, 0.8);
-        border-radius: 0 0 10px 10px;
-        padding: 10px;
-        box-shadow: 0 2px 8px rgba(0,0,0,0.4);
-    }
+        .felso {
+            background-color: rgba(51, 51, 51, 0.9);
+            border-radius: 0 0 10px 10px;
+            padding: 15px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.4);
+            position: sticky;
+            top: 0;
+            z-index: 1001;
+            text-align: center;
+        }
 
-    .felso h1 {
-        color: red;
-        text-align: center;
-        margin: 0;
-    }
+        .felso h1 {
+            color: red;
+            margin: 0 0 10px 0;
+        }
 
-    #ulb {
-        list-style-type: none;
-        padding: 0;
-        margin: 10px 0 0 0;
-        display: flex;
-        justify-content: center;
-        flex-wrap: wrap;
-    }
+        #ulb {
+            list-style-type: none;
+            padding: 0;
+            margin: 10px 0;
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
 
-    .lib {
-        margin: 5px;
-    }
+        .lib { margin: 5px; }
 
-    .lib a {
-        text-decoration: none;
-        color: white;
-        padding: 8px 12px;
-        display: block;
-        background-color: #555;
-        border-radius: 8px;
-    }
+        .lib a, .cart-toggle {
+            text-decoration: none;
+            color: white;
+            padding: 8px 12px;
+            display: block;
+            background-color: #555;
+            border-radius: 8px;
+            cursor: pointer;
+            border: none;
+        }
 
-    .lib a:hover {
-        background-color: #777;
-    }
+        .lib a:hover, .cart-toggle:hover { background-color: #777; }
 
-    .container {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 20px;
-        padding: 20px;
-    }
+        .search-box {
+            padding: 10px;
+            width: 80%;
+            max-width: 400px;
+            border-radius: 5px;
+            border: 2px solid red;
+            margin-bottom: 10px;
+        }
 
-    .engineblocks, .cylinderheads {
-        color: white;
-        background-color: rgba(0,0,0,0.85);
-        width: 220px;
-        text-align: center;
-        padding: 10px;
-        border-radius: 10px;
-    }
+        .container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            padding: 20px;
+            justify-content: center;
+        }
 
-    .engineblocks img,
-    .cylinderheads img {
-        width: 100%;
-        border-radius: 5px;
-    }
+        .product-card {
+            color: white;
+            background-color: rgba(0,0,0,0.85);
+            width: 240px;
+            text-align: center;
+            padding: 15px;
+            border-radius: 10px;
+            border: 1px solid #444;
+        }
 
-    input[type="button"] {
-        margin-top: 10px;
-        padding: 8px;
-        width: 100%;
-        background-color: red;
-        border: none;
-        color: white;
-        border-radius: 5px;
-        cursor: pointer;
-    }
+        .product-card img {
+            width: 100%;
+            height: 160px;
+            object-fit: cover;
+            border-radius: 5px;
+        }
 
-    input[type="button"]:hover {
-        background-color: darkred;
-    }
+        .price-tag {
+            color: #00ff00;
+            font-weight: bold;
+            font-size: 1.2em;
+            margin: 10px 0;
+        }
 
-    /* Kosár */
-    #cart {
-        position: fixed;
-        top: 90px;
-        right: 20px;
-        width: 300px;
-        background-color: rgba(0,0,0,0.9);
-        color: white;
-        border-radius: 10px;
-        padding: 15px;
-        display: none;
-        z-index: 1000;
-    }
+        .btn-add-cart {
+            background: #28a745;
+            color: white;
+            border: none;
+            padding: 10px;
+            width: 100%;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+        }
 
-    #cart h3 {
-        margin-top: 0;
-        text-align: center;
-        color: red;
-    }
+        .btn-add-cart:hover { background: #218838; }
 
-    #cart ul {
-        list-style: none;
-        padding: 0;
-        max-height: 400px;
-        overflow-y: auto;
-    }
+        /* Kosár Panel */
+        #cart-panel {
+            position: fixed;
+            right: 20px;
+            top: 150px;
+            background: white;
+            color: black;
+            padding: 15px;
+            border-radius: 8px;
+            width: 280px;
+            display: none;
+            box-shadow: 0 0 20px rgba(0,0,0,0.8);
+            z-index: 2000;
+        }
 
-    #cart ul li {
-        border-bottom: 1px solid #555;
-        padding: 6px 0;
-        font-size: 14px;
-    }
+        #cart-list {
+            list-style: none;
+            padding: 0;
+        }
 
-    #cart button {
-        width: 100%;
-        margin-top: 10px;
-        padding: 8px;
-        background-color: red;
-        border: none;
-        color: white;
-        border-radius: 5px;
-        cursor: pointer;
-    }
-</style>
+        #cart-list li {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 8px 0;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .btn-remove-from-cart {
+            background: #dc3545;
+            color: white;
+            border: none;
+            padding: 4px 8px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+    </style>
 </head>
 <body>
 
 <div class="felso">
     <h1>Motor és hajtáslánc</h1>
+    
     <ul id="ulb">
         <li class="lib"><a href="index.html">Főoldal</a></li>
         <li class="lib"><a href="motoreshajtaslanc.html">Motor és hajtáslánc</a></li>
         <li class="lib"><a href="futomueskormanyzas.html">Futómű és kormányzás</a></li>
-        <li class="lib"><a href="#" onclick="toggleCart()">🛒 Kosár</a></li>
+        <li class="lib"><button class="cart-toggle" onclick="toggleCart()">🛒 Kosár (<span id="cart-count">0</span>)</button></li>
     </ul>
+
+    <input type="text" id="searchBar" class="search-box" placeholder="Keresés a termékek között..." onkeyup="renderProducts()">
 </div>
 
-<div class="container">
-
-    <div class="engineblocks">
-        <h3>V8 Motorblokk</h3>
-        <img src="img/imgengineblocks/v8engineblock.jpg" alt="v8engineblock">
-        <p>2 170 000 Ft</p>
-        <input type="button" value="Kosárba" onclick="addToCart('V8 Motorblokk – 2 170 000 Ft')">
-    </div>
-
-    <div class="cylinderheads">
-        <h3>V8 Hengerfej</h3>
-        <img src="img/imgcylinderheads/v8cylinderhead.png" alt="v8cylinderhead">
-        <p>210 795 Ft</p>
-        <input type="button" value="Kosárba" onclick="addToCart('V8 Hengerfej – 210 795 Ft')">
-    </div>
-
-    <div class="cylinderheads">
-        <h3>V8 Turbófeltöltő</h3>
-        <img src="img/imgturbocharger/turbofeltolto.jpg" alt="v8turbocharger">
-        <p>178 074 Ft</p>
-        <input type="button" value="Kosárba" onclick="addToCart('V8 Turbófeltöltő – 178 074 Ft')">
-    </div>
-
-    <div class="cylinderheads">
-        <h3>V8 Leömlő (kipufogó kollektor)</h3>
-        <img src="img/Downpipe(exhaust manifold)/Downpipe(exhaustmanifold).jpg" alt="Downpipe">
-        <p>171 960 Ft</p>
-        <input type="button" value="Kosárba" onclick="addToCart('V8 Leömlő – 171 960 Ft')">
-    </div>
-
-    <div class="cylinderheads">
-        <h3>Jaguar F-type Intercooler</h3>
-        <img src="img/Intercooler/jaguarFtypeChargeCoolerIntercooler.jpg" alt="Intercooler">
-        <p>282 726 Ft</p>
-        <input type="button" value="Kosárba" onclick="addToCart('Jaguar F-type Intercooler – 282 726 Ft')">
-    </div>
-
-    <div class="cylinderheads">
-        <h3>Sports Air Filter</h3>
-        <img src="img/airfilters/sportsairfilter.jpg" alt="v8turbocharger">
-        <p>47 720 Ft</p>
-        <input type="button" value="Kosárba" onclick="addToCart('Sports Air Filter – 47 720 Ft')">
-    </div>
-
-    <div class="cylinderheads">
-        <h3>V8 Olajhűtő</h3>
-        <img src="img/Olajhuto/v8Olajhuto.jpg" alt="Olajhűtő">
-        <p>52 450 Ft</p>
-        <input type="button" value="Kosárba" onclick="addToCart('V8 Olajhűtő – 52 450 Ft')">
-    </div>
-
-    <div class="cylinderheads">
-        <h3>Sport kuplung</h3>
-        <img src="img/kuplungok/Sportkuplung.jpg" alt="Sport kuplung">
-        <p>90 178 Ft</p>
-        <input type="button" value="Kosárba" onclick="addToCart('Sport kuplung – 90 178 Ft')">
-    </div>
-
-    <div class="cylinderheads">
-        <h3>Sebességváltó (dogbox, szekvenciális)</h3>
-        <img src="img/gearboxs/samsomasszekvencialisvalto.jpg" alt="Sebességváltó">
-        <p>5 050 000 Ft</p>
-        <input type="button" value="Kosárba" onclick="addToCart('Sebességváltó – 5 050 000 Ft')">
-    </div>
-
-    <div class="cylinderheads">
-        <h3>Differenciálmű (LSD)</h3>
-        <img src="img/Differencialmu(LSD)/Differencialmu(LSD).jpg" alt="Differenciálmű">
-        <p>688 720 Ft</p>
-        <input type="button" value="Kosárba" onclick="addToCart('Differenciálmű – 688 720 Ft')">
-    </div>
-
+<div class="container" id="productGrid">
+    <!-- Itt jelennek meg a termékek -->
 </div>
 
-<!-- Kosár -->
-<div id="cart">
-    <h3>Kosár tartalma</h3>
-    <ul id="cart-items"></ul>
-    <button onclick="toggleCart()">Bezárás</button>
+<!-- Kosár Panel -->
+<div id="cart-panel">
+    <h3 style="margin-top:0; color: red;">🛒 Kosár tartalma</h3>
+    <ul id="cart-list"></ul>
+    <hr>
+    <p>Összesen: <b id="total-price">0</b> Ft</p>
+    <button onclick="toggleCart()" style="width:100%; padding: 8px; background: #555; color: white; border: none; border-radius: 4px; cursor: pointer;">Bezárás</button>
 </div>
 
 <script>
-function toggleCart() {
-    const cart = document.getElementById("cart");
-    cart.style.display = (cart.style.display === "block") ? "none" : "block";
-}
+    // A terméklista FIX, nem módosítható és nem törölhető
+    const products = [
+        { id: 1, name: "V8 Motorblokk", price: 2170000, img: "img/imgengineblocks/v8engineblock.jpg" },
+        { id: 2, name: "V8 Hengerfej", price: 210795, img: "img/imgcylinderheads/v8cylinderhead.png" },
+        { id: 3, name: "V8 Turbófeltöltő", price: 178074, img: "img/imgturbocharger/turbofeltolto.jpg" },
+        { id: 4, name: "V8 Leömlő", price: 171960, img: "img/Downpipe(exhaust manifold)/Downpipe(exhaustmanifold).jpg" },
+        { id: 5, name: "Jaguar F-type Intercooler", price: 282726, img: "img/Intercooler/jaguarFtypeChargeCoolerIntercooler.jpg" },
+        { id: 6, name: "Sebességváltó", price: 5050000, img: "img/gearboxs/samsomasszekvencialisvalto.jpg" },
+        { id: 7, name: "LSD Differenciálmű", price: 688720, img: "img/Differencialmu(LSD)/Differencialmu(LSD).jpg" }
+    ];
 
-function addToCart(item) {
-    const list = document.getElementById("cart-items");
-    const li = document.createElement("li");
-    li.textContent = item;
-    list.appendChild(li);
-}
+    let cart = [];
+
+    // Termékek megjelenítése
+    function renderProducts() {
+        const grid = document.getElementById('productGrid');
+        const searchTerm = document.getElementById('searchBar').value.toLowerCase();
+        grid.innerHTML = "";
+
+        const filtered = products.filter(p => p.name.toLowerCase().includes(searchTerm));
+
+        filtered.forEach(p => {
+            grid.innerHTML += `
+                <div class="product-card">
+                    <img src="${p.img}" alt="${p.name}">
+                    <h3>${p.name}</h3>
+                    <p class="price-tag">${p.price.toLocaleString()} Ft</p>
+                    <button class="btn-add-cart" onclick="addToCart(${p.id})">Kosárba</button>
+                </div>
+            `;
+        });
+    }
+
+    // Kosár funkciók
+    function toggleCart() {
+        const panel = document.getElementById('cart-panel');
+        panel.style.display = panel.style.display === 'block' ? 'none' : 'block';
+    }
+
+    function addToCart(productId) {
+        const product = products.find(p => p.id === productId);
+        cart.push({ ...product, cartId: Date.now() + Math.random() });
+        updateCartUI();
+    }
+
+    // TÖRLÉS CSAK A KOSÁRBÓL LEHETSÉGES
+    function removeFromCart(cartId) {
+        cart = cart.filter(item => item.cartId !== cartId);
+        updateCartUI();
+    }
+
+    function updateCartUI() {
+        const list = document.getElementById('cart-list');
+        const count = document.getElementById('cart-count');
+        const totalDisp = document.getElementById('total-price');
+        
+        list.innerHTML = "";
+        let total = 0;
+
+        cart.forEach((item) => {
+            total += item.price;
+            list.innerHTML += `
+                <li>
+                    <span>${item.name}</span>
+                    <div>
+                        <span style="margin-right: 10px;">${item.price.toLocaleString()} Ft</span>
+                        <button class="btn-remove-from-cart" onclick="removeFromCart(${item.cartId})">Törlés</button>
+                    </div>
+                </li>
+            `;
+        });
+
+        count.innerText = cart.length;
+        totalDisp.innerText = total.toLocaleString();
+    }
+
+    // Indítás
+    renderProducts();
 </script>
 
 </body>
 </html>
-
-
-
-
