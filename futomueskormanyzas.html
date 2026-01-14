@@ -13,82 +13,58 @@
             background-size: cover;
             background-position: center;
             background-attachment: fixed;
-            min-height: 100vh;
+            background-color: #1a1a1a;
+            color: white;
         }
 
         .felso {
-            background-color: rgba(51, 51, 51, 0.9);
-            border-radius: 0 0 10px 10px;
-            padding: 10px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.4);
+            background-color: rgba(51, 51, 51, 0.95);
+            padding: 15px;
+            text-align: center;
             position: sticky;
             top: 0;
             z-index: 1000;
         }
 
-        .felso h1 {
-            color: red;
-            text-align: center;
-            margin: 0;
-        }
-
         #ulb {
             list-style-type: none;
             padding: 0;
-            margin: 10px 0 0 0;
+            margin: 10px 0;
             display: flex;
             justify-content: center;
             flex-wrap: wrap;
+            gap: 10px;
         }
 
-        .lib { margin: 5px; }
-
-        .lib a {
+        .lib a, .cart-btn {
             text-decoration: none;
             color: white;
             padding: 8px 12px;
-            display: block;
             background-color: #555;
             border-radius: 8px;
-            transition: 0.3s;
-        }
-
-        .lib a:hover { background-color: #777; }
-
-        /* Kereső sáv */
-        .search-container {
-            text-align: center;
-            margin-top: 10px;
-        }
-        #searchBar {
-            padding: 8px;
-            width: 250px;
-            border-radius: 5px;
+            cursor: pointer;
             border: none;
         }
 
-        /* Termékek */
         .container {
             display: flex;
             flex-wrap: wrap;
             gap: 20px;
-            padding: 20px;
+            padding: 30px;
             justify-content: center;
         }
 
         .product-card {
-            color: white;
             background-color: rgba(0,0,0,0.85);
-            width: 220px;
-            text-align: center;
+            width: 240px;
             padding: 15px;
             border-radius: 10px;
-            border: 1px solid #444;
+            text-align: center;
         }
 
         .product-card img {
             width: 100%;
-            height: 150px;
+            height: 160px;
             object-fit: cover;
             border-radius: 5px;
         }
@@ -96,170 +72,124 @@
         .price {
             color: #00ff00;
             font-weight: bold;
-            font-size: 1.1em;
+            font-size: 1.2em;
+            margin: 10px 0;
         }
 
-        .btn-add {
-            background-color: red;
-            color: white;
-            border: none;
-            padding: 10px;
-            width: 100%;
-            border-radius: 5px;
-            cursor: pointer;
-            font-weight: bold;
-            margin-top: 10px;
-        }
-
-        .btn-add:hover { background-color: darkred; }
-
-        /* Kosár Panel */
-        #cart {
+        #cart-panel {
             position: fixed;
-            top: 100px;
             right: 20px;
-            width: 280px;
-            background-color: rgba(255, 255, 255, 0.95);
+            top: 150px;
+            background: white;
             color: black;
-            border-radius: 10px;
             padding: 15px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.6);
+            border-radius: 8px;
+            width: 260px;
             display: none;
-            z-index: 1001;
-        }
-
-        #cart h3 { margin-top: 0; text-align: center; color: red; }
-
-        #cart ul { list-style: none; padding: 0; max-height: 300px; overflow-y: auto; }
-
-        #cart ul li {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 8px 0;
-            border-bottom: 1px solid #ccc;
-            font-size: 14px;
-        }
-
-        .btn-remove {
-            background-color: #ff4444;
-            color: white;
-            border: none;
-            padding: 2px 8px;
-            border-radius: 3px;
-            cursor: pointer;
+            z-index: 2000;
         }
     </style>
 </head>
 
 <body>
 
-    <div class="felso">
-        <h1>Futómű és kormányzás</h1>
-        <ul id="ulb">
-             <li class="lib"><a href="https://siposzoltan63.github.io/RallyWeboldalproject/index.html">Főoldal</a></li>
-            <li class="lib"><a href="https://siposzoltan63.github.io/RallyWeboldalproject/motoreshajtaslanc.html">Motor és hajtáslánc</a></li>
-            <li class="lib"><a href="https://siposzoltan63.github.io/RallyWeboldalproject/futomueskormanyzas.html">Futómű és kormányzás</a></li>
-            <li><button class="admin-btn" onclick="toggleCart()">🛒 Kosár (<span id="cart-count">0</span>)</button></li>
-            <li><button class="admin-btn" id="adminToggle" onclick="switchMode()"><a href="https://siposzoltan63.github.io/RallyWeboldalproject/admin.html">⚙️ ADMIN PAGE</a>⚙️ ADMIN PAGE</button></li>
-        </ul>
-        <div class="search-container">
-            <input type="text" id="searchBar" placeholder="Termék keresése..." onkeyup="filterProducts()">
-        </div>
-    </div>
+<div class="felso">
+    <h1 style="color:red;">Futómű és kormányzás</h1>
 
-    <div class="container" id="productGrid">
-        <!-- Termék 1 -->
-        <div class="product-card">
-            <h3>Lengéscsillapító</h3>
-            <img src="img/lenges.jpg" alt="Lengéscsillapító">
-            <p>Pro-Track Állítható szett</p>
-            <p class="price">450 000 Ft</p>
-            <button class="btn-add" onclick="addToCart('Lengéscsillapító', 450000)">Kosárba</button>
-        </div>
+    <ul id="ulb">
+        <li class="lib">
+            <a href="https://siposzoltan63.github.io/RallyWeboldalproject/index.html">Főoldal</a>
+        </li>
+        <li class="lib">
+            <a href="https://siposzoltan63.github.io/RallyWeboldalproject/motoreshajtaslanc.html">Motor és hajtáslánc</a>
+        </li>
+        <li class="lib">
+            <a href="https://siposzoltan63.github.io/RallyWeboldalproject/futomueskormanyzas.html">Futómű és kormányzás</a>
+        </li>
+        <li>
+            <button class="cart-btn" onclick="toggleCart()">
+                🛒 Kosár (<span id="cart-count">0</span>)
+            </button>
+        </li>
+    </ul>
 
-        <!-- Termék 2 -->
-        <div class="product-card">
-            <h3>Kormánymű</h3>
-            <img src="img/kormany.jpg" alt="Kormánymű">
-            <p>Rövidített áttételű</p>
-            <p class="price">210 000 Ft</p>
-            <button class="btn-add" onclick="addToCart('Kormánymű', 210000)">Kosárba</button>
-        </div>
+    <input type="text" id="searchBar" placeholder="Keresés..." onkeyup="renderProducts()">
+</div>
 
-        <!-- Termék 3 -->
-        <div class="product-card">
-            <h3>Toronycsapágy</h3>
-            <img src="img/torony.jpg" alt="Toronycsapágy">
-            <p>Állítható dőlésszög</p>
-            <p class="price">85 000 Ft</p>
-            <button class="btn-add" onclick="addToCart('Toronycsapágy', 85000)">Kosárba</button>
-        </div>
-    </div>
+<div class="container" id="productGrid"></div>
 
-    <!-- Kosár -->
-    <div id="cart">
-        <h3>🛒 Kosár tartalma</h3>
-        <ul id="cart-items">
-            <!-- Itt jelennek meg a tételek -->
-        </ul>
-        <p><b>Összesen: <span id="total-price">0</span> Ft</b></p>
-        <button onclick="toggleCart()" style="background-color: #555;">Bezárás</button>
-    </div>
+<div id="cart-panel">
+    <h3>🛒 Kosár</h3>
+    <ul id="cart-list"></ul>
+    <p><b>Összesen: <span id="total">0</span> Ft</b></p>
+    <button onclick="toggleCart()">Bezárás</button>
+</div>
 
-    <script>
-        let cart = [];
-
-        function toggleCart() {
-            const cartDiv = document.getElementById("cart");
-            cartDiv.style.display = (cartDiv.style.display === "block") ? "none" : "block";
-        }
-
-        function addToCart(name, price) {
-            cart.push({ name, price });
-            updateCartUI();
-        }
-
-        function removeFromCart(index) {
-            cart.splice(index, 1);
-            updateCartUI();
-        }
-
-        function updateCartUI() {
-            const list = document.getElementById("cart-items");
-            const count = document.getElementById("cart-count");
-            const totalSpan = document.getElementById("total-price");
-            
-            list.innerHTML = "";
-            let total = 0;
-
-            cart.forEach((item, index) => {
-                total += item.price;
-                const li = document.createElement("li");
-                li.innerHTML = `
-                    ${item.name} - ${item.price.toLocaleString()} Ft
-                    <button class="btn-remove" onclick="removeFromCart(${index})">X</button>
-                `;
-                list.appendChild(li);
-            });
-
-            count.innerText = cart.length;
-            totalSpan.innerText = total.toLocaleString();
-        }
-
-        function filterProducts() {
-            const query = document.getElementById("searchBar").value.toLowerCase();
-            const cards = document.getElementsByClassName("product-card");
-
-            for (let card of cards) {
-                const title = card.getElementsByTagName("h3")[0].innerText.toLowerCase();
-                card.style.display = title.includes(query) ? "block" : "none";
+<script>
+    /* TERMÉKEK BETÖLTÉSE LOCALSTORAGE-BŐL */
+    function getProducts() {
+        const data = localStorage.getItem("futomu_products");
+        return data ? JSON.parse(data) : [
+            {
+                id: 1,
+                name: "Sport futómű szett",
+                price: 350000,
+                img: "img/futomu/sport.jpg"
             }
-        }
-    </script>
+        ];
+    }
+
+    let products = getProducts();
+    let cart = [];
+
+    /* TERMÉKEK MEGJELENÍTÉSE */
+    function renderProducts() {
+        const grid = document.getElementById("productGrid");
+        const query = document.getElementById("searchBar").value.toLowerCase();
+        grid.innerHTML = "";
+
+        products
+            .filter(p => p.name.toLowerCase().includes(query))
+            .forEach(p => {
+                grid.innerHTML += `
+                    <div class="product-card">
+                        <img src="${p.img}" alt="${p.name}">
+                        <h3>${p.name}</h3>
+                        <p class="price">${p.price.toLocaleString()} Ft</p>
+                        <button onclick="addToCart('${p.name}', ${p.price})">Kosárba</button>
+                    </div>
+                `;
+            });
+    }
+
+    /* KOSÁR FUNKCIÓK */
+    function addToCart(name, price) {
+        cart.push({ name, price });
+        updateCart();
+    }
+
+    function updateCart() {
+        document.getElementById("cart-count").innerText = cart.length;
+
+        const list = document.getElementById("cart-list");
+        let total = 0;
+        list.innerHTML = "";
+
+        cart.forEach(item => {
+            total += item.price;
+            list.innerHTML += `<li>${item.name}</li>`;
+        });
+
+        document.getElementById("total").innerText = total.toLocaleString();
+    }
+
+    function toggleCart() {
+        const panel = document.getElementById("cart-panel");
+        panel.style.display = panel.style.display === "block" ? "none" : "block";
+    }
+
+    renderProducts();
+</script>
 
 </body>
-
 </html>
-
-
