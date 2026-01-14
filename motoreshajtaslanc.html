@@ -3,202 +3,251 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ADMIN - Webshop</title>
-
+<title>Motor és hajtáslánc - Webshop</title>
 <style>
 body {
-    margin:0;
+    margin: 0;
     font-family: Arial, sans-serif;
-    background-image:url("img/rally.jpg");
-    background-size:cover;
-    background-position:center;
-    background-attachment:fixed;
-    color:white;
+    background-image: url("img/rally.jpg");
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    background-color: #1a1a1a;
 }
+
 .felso {
-    background: rgba(51,51,51,0.95);
-    padding:15px;
-    text-align:center;
+    background-color: rgba(51, 51, 51, 0.9);
+    border-radius: 0 0 10px 10px;
+    padding: 15px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.4);
     position: sticky;
-    top:0;
+    top: 0;
+    z-index: 1001;
+    text-align: center;
 }
+
+.felso h1 {
+    color: red;
+    margin: 0 0 10px 0;
+}
+
 #ulb {
-    list-style:none;
-    padding:0;
-    display:flex;
-    justify-content:center;
-    flex-wrap:wrap;
-    gap:10px;
+    list-style-type: none;
+    padding: 0;
+    margin: 10px 0;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
 }
-.lib a, .admin-btn {
-    text-decoration:none;
-    color:white;
-    padding:8px 12px;
-    background:#555;
-    border-radius:6px;
-    cursor:pointer;
-    border:none;
+
+.lib { margin: 5px; }
+
+.lib a, .cart-toggle {
+    text-decoration: none;
+    color: white;
+    padding: 8px 12px;
+    display: block;
+    background-color: #555;
+    border-radius: 8px;
+    cursor: pointer;
+    border: none;
 }
+
+.lib a:hover, .cart-toggle:hover { background-color: #777; }
+
+.search-box {
+    padding: 10px;
+    width: 80%;
+    max-width: 400px;
+    border-radius: 5px;
+    border: 2px solid red;
+    margin-bottom: 10px;
+}
+
 .container {
-    padding:30px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    padding: 20px;
+    justify-content: center;
 }
-h1 { color:red; text-align:center; margin-bottom:20px; }
-h2 { color:#00ff00; margin-top:40px; }
-table { width:100%; border-collapse: collapse; margin-top:20px; }
-th, td { border:1px solid #ddd; padding:10px; text-align:left; }
-th { background:#333; color:white; }
-input { width:90%; padding:5px; }
-button { padding:5px 10px; border:none; border-radius:5px; cursor:pointer; }
-.btn-del { background:#dc3545; color:white; }
-.add-form { background: rgba(0,0,0,0.85); padding:15px; border-radius:8px; margin-bottom:20px; }
-.add-form input { margin-bottom:10px; display:block; }
-.add-form button { background:#28a745; color:white; width:100%; }
+
+.product-card {
+    color: white;
+    background-color: rgba(0,0,0,0.85);
+    width: 240px;
+    text-align: center;
+    padding: 15px;
+    border-radius: 10px;
+    border: 1px solid #444;
+}
+
+.product-card img {
+    width: 100%;
+    height: 160px;
+    object-fit: cover;
+    border-radius: 5px;
+}
+
+.price-tag {
+    color: #00ff00;
+    font-weight: bold;
+    font-size: 1.2em;
+    margin: 10px 0;
+}
+
+.btn-add-cart {
+    background: #28a745;
+    color: white;
+    border: none;
+    padding: 10px;
+    width: 100%;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.btn-add-cart:hover { background: #218838; }
+
+/* Kosár Panel */
+#cart-panel {
+    position: fixed;
+    right: 20px;
+    top: 150px;
+    background: white;
+    color: black;
+    padding: 15px;
+    border-radius: 8px;
+    width: 280px;
+    display: none;
+    box-shadow: 0 0 20px rgba(0,0,0,0.8);
+    z-index: 2000;
+}
+
+#cart-list {
+    list-style: none;
+    padding: 0;
+}
+
+#cart-list li {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 0;
+    border-bottom: 1px solid #ddd;
+}
+
+.btn-remove-from-cart {
+    background: #dc3545;
+    color: white;
+    border: none;
+    padding: 4px 8px;
+    border-radius: 4px;
+    cursor: pointer;
+}
 </style>
 </head>
-
 <body>
 
 <div class="felso">
-<h1>ADMIN - Webshop</h1>
-
-<ul id="ulb">
-<li class="lib"><a href="https://siposzoltan63.github.io/RallyWeboldalproject/index.html">Főoldal</a></li>
-<li class="lib"><a href="https://siposzoltan63.github.io/RallyWeboldalproject/motoreshajtaslanc.html">Motor és hajtáslánc</a></li>
-<li class="lib"><a href="https://siposzoltan63.github.io/RallyWeboldalproject/futomueskormanyzas.html">Futómű és kormányzás</a></li>
-</ul>
+    <h1>Motor és hajtáslánc</h1>
+    <ul id="ulb">
+        <li class="lib"><a href="https://siposzoltan63.github.io/RallyWeboldalproject/index.html">Főoldal</a></li>
+        <li class="lib"><a href="https://siposzoltan63.github.io/RallyWeboldalproject/motoreshajtaslanc.html">Motor és hajtáslánc</a></li>
+        <li class="lib"><a href="https://siposzoltan63.github.io/RallyWeboldalproject/futomueskormanyzas.html">Futómű és kormányzás</a></li>
+        <li><button class="admin-btn" onclick="toggleCart()">🛒 Kosár (<span id="cart-count">0</span>)</button></li>
+        <li><button class="admin-btn" id="adminToggle">
+            <a href="https://siposzoltan63.github.io/RallyWeboldalproject/admin.html">⚙️ ADMIN PAGE</a>
+        </button></li>
+    </ul>
+    <input type="text" id="searchBar" class="search-box" placeholder="Keresés a termékek között..." onkeyup="renderProducts()">
 </div>
 
-<div class="container">
-
-<h2>Motor és hajtáslánc termékek</h2>
-
-<div class="add-form">
-    <h3>Új termék hozzáadása</h3>
-    <input type="text" id="newMotorName" placeholder="Terméknév">
-    <input type="number" id="newMotorPrice" placeholder="Ár (Ft)">
-    <input type="text" id="newMotorImg" placeholder="Kép elérési út (pl: img/imgengineblocks/v8engineblock.jpg)">
-    <button onclick="addNew('motor')">Hozzáadás</button>
+<div class="container" id="productGrid">
+    <!-- Termékek ide töltődnek -->
 </div>
 
-<table>
-    <thead>
-        <tr>
-            <th>Kép</th>
-            <th>Terméknév</th>
-            <th>Ár (Ft)</th>
-            <th>Műveletek</th>
-        </tr>
-    </thead>
-    <tbody id="motor-tbody"></tbody>
-</table>
-
-<h2>Futómű és kormányzás termékek</h2>
-
-<div class="add-form">
-    <h3>Új termék hozzáadása</h3>
-    <input type="text" id="newFutomuName" placeholder="Terméknév">
-    <input type="number" id="newFutomuPrice" placeholder="Ár (Ft)">
-    <input type="text" id="newFutomuImg" placeholder="Kép elérési út (pl: img/futomu/sport.jpg)">
-    <button onclick="addNew('futomu')">Hozzáadás</button>
-</div>
-
-<table>
-    <thead>
-        <tr>
-            <th>Kép</th>
-            <th>Terméknév</th>
-            <th>Ár (Ft)</th>
-            <th>Műveletek</th>
-        </tr>
-    </thead>
-    <tbody id="futomu-tbody"></tbody>
-</table>
-
+<!-- Kosár Panel -->
+<div id="cart-panel">
+    <h3 style="margin-top:0; color: red;">🛒 Kosár tartalma</h3>
+    <ul id="cart-list"></ul>
+    <hr>
+    <p>Összesen: <b id="total-price">0</b> Ft</p>
+    <button onclick="toggleCart()" style="width:100%; padding: 8px; background: #555; color: white; border: none; border-radius: 4px; cursor: pointer;">Bezárás</button>
 </div>
 
 <script>
-let motorProducts = JSON.parse(localStorage.getItem("motor_products")) || [
-    {id:1, name:"V8 Motorblokk", price:2170000, img:"img/imgengineblocks/v8engineblock.jpg"},
-    {id:2, name:"V8 Hengerfej", price:210795, img:"img/imgcylinderheads/v8cylinderhead.png"}
+const products = [
+    { id: 1, name: "V8 Motorblokk", price: 2170000, img: "img/imgengineblocks/v8engineblock.jpg" },
+    { id: 2, name: "V8 Hengerfej", price: 210795, img: "img/imgcylinderheads/v8cylinderhead.png" },
+    { id: 3, name: "V8 Turbófeltöltő", price: 178074, img: "img/imgturbocharger/turbofeltolto.jpg" },
+    { id: 4, name: "V8 Leömlő", price: 171960, img: "img/Downpipe(exhaust manifold)/Downpipe(exhaustmanifold).jpg" },
+    { id: 5, name: "Jaguar F-type Intercooler", price: 282726, img: "img/Intercooler/jaguarFtypeChargeCoolerIntercooler.jpg" },
+    { id: 6, name: "Sebességváltó", price: 5050000, img: "img/gearboxs/samsomasszekvencialisvalto.jpg" },
+    { id: 7, name: "LSD Differenciálmű", price: 688720, img: "img/Differencialmu(LSD)/Differencialmu(LSD).jpg" }
 ];
 
-let futomuProducts = JSON.parse(localStorage.getItem("futomu_products")) || [
-    {id:1, name:"Sport futómű szett", price:350000, img:"img/futomu/sport.jpg"}
-];
+let cart = [];
 
-function save(type){
-    if(type==='motor') localStorage.setItem("motor_products", JSON.stringify(motorProducts));
-    else localStorage.setItem("futomu_products", JSON.stringify(futomuProducts));
-}
-
-function loadAdmin(){
-    const motorBody = document.getElementById("motor-tbody");
-    motorBody.innerHTML = "";
-    motorProducts.forEach(p=>{
-        motorBody.innerHTML+=`<tr>
-            <td><img src="${p.img}" width="50"></td>
-            <td><input type="text" value="${p.name}" onchange="edit('motor',${p.id},'name',this.value)"></td>
-            <td><input type="number" value="${p.price}" onchange="edit('motor',${p.id},'price',this.value)"></td>
-            <td><button class="btn-del" onclick="del('motor',${p.id})">Törlés</button></td>
-        </tr>`;
-    });
-
-    const futomuBody = document.getElementById("futomu-tbody");
-    futomuBody.innerHTML = "";
-    futomuProducts.forEach(p=>{
-        futomuBody.innerHTML+=`<tr>
-            <td><img src="${p.img}" width="50"></td>
-            <td><input type="text" value="${p.name}" onchange="edit('futomu',${p.id},'name',this.value)"></td>
-            <td><input type="number" value="${p.price}" onchange="edit('futomu',${p.id},'price',this.value)"></td>
-            <td><button class="btn-del" onclick="del('futomu',${p.id})">Törlés</button></td>
-        </tr>`;
+function renderProducts() {
+    const grid = document.getElementById('productGrid');
+    const searchTerm = document.getElementById('searchBar').value.toLowerCase();
+    grid.innerHTML = "";
+    const filtered = products.filter(p => p.name.toLowerCase().includes(searchTerm));
+    filtered.forEach(p => {
+        grid.innerHTML += `
+            <div class="product-card">
+                <img src="${p.img}" alt="${p.name}">
+                <h3>${p.name}</h3>
+                <p class="price-tag">${p.price.toLocaleString()} Ft</p>
+                <button class="btn-add-cart" onclick="addToCart(${p.id})">Kosárba</button>
+            </div>
+        `;
     });
 }
 
-function edit(type,id,field,value){
-    let list = (type==='motor') ? motorProducts : futomuProducts;
-    const item = list.find(p=>p.id===id);
-    if(field==='price') value=parseInt(value);
-    item[field]=value;
-    save(type);
+function toggleCart() {
+    const panel = document.getElementById('cart-panel');
+    panel.style.display = panel.style.display === 'block' ? 'none' : 'block';
 }
 
-function del(type,id){
-    if(confirm("Biztosan törlöd a terméket?")){
-        let list = (type==='motor') ? motorProducts : futomuProducts;
-        list = list.filter(p=>p.id!==id);
-        if(type==='motor') motorProducts=list;
-        else futomuProducts=list;
-        save(type);
-        loadAdmin();
-    }
+function addToCart(productId) {
+    const product = products.find(p => p.id === productId);
+    cart.push({ ...product, cartId: Date.now() + Math.random() });
+    updateCartUI();
 }
 
-function addNew(type){
-    let name, price, img;
-    if(type==='motor'){
-        name=document.getElementById("newMotorName").value;
-        price=parseInt(document.getElementById("newMotorPrice").value);
-        img=document.getElementById("newMotorImg").value || "img/imgengineblocks/default.jpg";
-        if(!name||!price){alert("Hiányzó adat!"); return;}
-        motorProducts.push({id:Date.now(), name:name, price:price, img:img});
-        save('motor');
-    } else {
-        name=document.getElementById("newFutomuName").value;
-        price=parseInt(document.getElementById("newFutomuPrice").value);
-        img=document.getElementById("newFutomuImg").value || "img/futomu/default.jpg";
-        if(!name||!price){alert("Hiányzó adat!"); return;}
-        futomuProducts.push({id:Date.now(), name:name, price:price, img:img});
-        save('futomu');
-    }
-    loadAdmin();
-    document.getElementById(type==='motor'?"newMotorName":"newFutomuName").value="";
-    document.getElementById(type==='motor'?"newMotorPrice":"newFutomuPrice").value="";
-    document.getElementById(type==='motor'?"newMotorImg":"newFutomuImg").value="";
-    alert("Termék hozzáadva!");
+function removeFromCart(cartId) {
+    cart = cart.filter(item => item.cartId !== cartId);
+    updateCartUI();
 }
 
-loadAdmin();
+function updateCartUI() {
+    const list = document.getElementById('cart-list');
+    const count = document.getElementById('cart-count');
+    const totalDisp = document.getElementById('total-price');
+
+    list.innerHTML = "";
+    let total = 0;
+
+    cart.forEach(item => {
+        total += item.price;
+        list.innerHTML += `
+            <li>
+                <span>${item.name}</span>
+                <div>
+                    <span style="margin-right: 10px;">${item.price.toLocaleString()} Ft</span>
+                    <button class="btn-remove-from-cart" onclick="removeFromCart(${item.cartId})">Törlés</button>
+                </div>
+            </li>
+        `;
+    });
+
+    count.innerText = cart.length;
+    totalDisp.innerText = total.toLocaleString();
+}
+
+renderProducts();
 </script>
 
 </body>
