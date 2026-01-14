@@ -3,8 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ADMIN - Futómű és kormányzás</title>
-
+<title>ADMIN - Futómű és Motor</title>
 <style>
 body {
     margin:0;
@@ -39,10 +38,9 @@ body {
     cursor:pointer;
     border:none;
 }
-.container {
-    padding:30px;
-}
+.container { padding:30px; }
 h1 { color:red; text-align:center; margin-bottom:20px; }
+h2 { color:#00ff00; margin-top:40px; }
 table { width:100%; border-collapse: collapse; margin-top:20px; }
 th, td { border:1px solid #ddd; padding:10px; text-align:left; }
 th { background:#333; color:white; }
@@ -54,106 +52,145 @@ button { padding:5px 10px; border:none; border-radius:5px; cursor:pointer; }
 .add-form button { background:#28a745; color:white; width:100%; }
 </style>
 </head>
-
 <body>
 
 <div class="felso">
-<h1>ADMIN - Futómű és kormányzás</h1>
-
+<h1>ADMIN - Futómű és Motor</h1>
 <ul id="ulb">
 <li class="lib"><a href="https://siposzoltan63.github.io/RallyWeboldalproject/index.html">Főoldal</a></li>
 <li class="lib"><a href="https://siposzoltan63.github.io/RallyWeboldalproject/motoreshajtaslanc.html">Motor és hajtáslánc</a></li>
 <li class="lib"><a href="https://siposzoltan63.github.io/RallyWeboldalproject/futomueskormanyzas.html">Futómű és kormányzás</a></li>
-<li><button class="admin-btn" id="adminToggle" onclick="switchMode()"><a href="https://siposzoltan63.github.io/RallyWeboldalproject/admin.html">⚙️ ADMIN PAGE</a>⚙️ ADMIN PAGE</button></li>
+<li><button class="admin-btn"><a href="https://siposzoltan63.github.io/RallyWeboldalproject/admin.html">⚙️ ADMIN PAGE</a>⚙️ ADMIN PAGE</button></li>
 </ul>
 </div>
 
 <div class="container">
-    <div class="add-form">
-        <h3>Új termék hozzáadása</h3>
-        <input type="text" id="newName" placeholder="Terméknév">
-        <input type="number" id="newPrice" placeholder="Ár (Ft)">
-        <input type="text" id="newImg" placeholder="Kép elérési út (pl: img/futomu/sport.jpg)">
-        <button onclick="addNew()">Hozzáadás</button>
-    </div>
 
-    <table>
-        <thead>
-            <tr>
-                <th>Kép</th>
-                <th>Terméknév</th>
-                <th>Ár (Ft)</th>
-                <th>Műveletek</th>
-            </tr>
-        </thead>
-        <tbody id="admin-tbody"></tbody>
-    </table>
+<h2>Futómű és kormányzás</h2>
+<div class="add-form">
+    <h3>Új termék hozzáadása</h3>
+    <input type="text" id="newNameFutomu" placeholder="Terméknév">
+    <input type="number" id="newPriceFutomu" placeholder="Ár (Ft)">
+    <input type="text" id="newImgFutomu" placeholder="Kép elérési út">
+    <button onclick="addNew('futomu')">Hozzáadás</button>
+</div>
+<table>
+<thead>
+<tr>
+<th>Kép</th><th>Terméknév</th><th>Ár (Ft)</th><th>Műveletek</th>
+</tr>
+</thead>
+<tbody id="tbodyFutomu"></tbody>
+</table>
+
+<h2>Motor és hajtáslánc</h2>
+<div class="add-form">
+    <h3>Új termék hozzáadása</h3>
+    <input type="text" id="newNameMotor" placeholder="Terméknév">
+    <input type="number" id="newPriceMotor" placeholder="Ár (Ft)">
+    <input type="text" id="newImgMotor" placeholder="Kép elérési út">
+    <button onclick="addNew('motor')">Hozzáadás</button>
+</div>
+<table>
+<thead>
+<tr>
+<th>Kép</th><th>Terméknév</th><th>Ár (Ft)</th><th>Műveletek</th>
+</tr>
+</thead>
+<tbody id="tbodyMotor"></tbody>
+</table>
+
 </div>
 
 <script>
-let products = JSON.parse(localStorage.getItem("futomu_products")) || [];
+// Betöltés LocalStorage-ból, vagy alapértelmezett lista
+let futomu_products = JSON.parse(localStorage.getItem("futomu_products")) || [];
+let motor_products = JSON.parse(localStorage.getItem("motor_products")) || [];
 
-function save(){
-    localStorage.setItem("futomu_products", JSON.stringify(products));
+// Mentés LocalStorage-be
+function save(type){
+    if(type==='futomu') localStorage.setItem("futomu_products", JSON.stringify(futomu_products));
+    else localStorage.setItem("motor_products", JSON.stringify(motor_products));
 }
 
+// Admin táblázat frissítése
 function loadAdmin(){
-    const tbody = document.getElementById("admin-tbody");
-    tbody.innerHTML = "";
-    products.forEach(p => {
-        tbody.innerHTML += `
-            <tr>
-                <td><img src="${p.img}" width="50"></td>
-                <td><input type="text" value="${p.name}" onchange="edit(${p.id},'name',this.value)"></td>
-                <td><input type="number" value="${p.price}" onchange="edit(${p.id},'price',this.value)"></td>
-                <td><button class="btn-del" onclick="del(${p.id})">Törlés</button></td>
-            </tr>
-        `;
+    const tbodyF = document.getElementById("tbodyFutomu");
+    tbodyF.innerHTML = "";
+    futomu_products.forEach(p=>{
+        tbodyF.innerHTML += `<tr>
+            <td><img src="${p.img}" width="50"></td>
+            <td><input type="text" value="${p.name}" onchange="edit('futomu',${p.id},'name',this.value)"></td>
+            <td><input type="number" value="${p.price}" onchange="edit('futomu',${p.id},'price',this.value)"></td>
+            <td><button class="btn-del" onclick="del('futomu',${p.id})">Törlés</button></td>
+        </tr>`;
+    });
+
+    const tbodyM = document.getElementById("tbodyMotor");
+    tbodyM.innerHTML = "";
+    motor_products.forEach(p=>{
+        tbodyM.innerHTML += `<tr>
+            <td><img src="${p.img}" width="50"></td>
+            <td><input type="text" value="${p.name}" onchange="edit('motor',${p.id},'name',this.value)"></td>
+            <td><input type="number" value="${p.price}" onchange="edit('motor',${p.id},'price',this.value)"></td>
+            <td><button class="btn-del" onclick="del('motor',${p.id})">Törlés</button></td>
+        </tr>`;
     });
 }
 
-function edit(id, field, value){
-    const item = products.find(p => p.id === id);
-    if(field === "price") value = parseInt(value);
-    item[field] = value;
-    save();
+// Szerkesztés
+function edit(type,id,field,value){
+    let arr = type==='futomu'?futomu_products:motor_products;
+    const item = arr.find(p=>p.id===id);
+    if(field==='price') value=parseInt(value);
+    item[field]=value;
+    save(type);
 }
 
-function del(id){
+// Törlés
+function del(type,id){
     if(confirm("Biztosan törlöd a terméket?")){
-        products = products.filter(p => p.id !== id);
-        save();
+        if(type==='futomu') futomu_products = futomu_products.filter(p=>p.id!==id);
+        else motor_products = motor_products.filter(p=>p.id!==id);
+        save(type);
         loadAdmin();
     }
 }
 
-function addNew(){
-    const name = document.getElementById("newName").value;
-    const price = parseInt(document.getElementById("newPrice").value);
-    const img = document.getElementById("newImg").value || "img/futomu/default.jpg";
+// Új termék hozzáadása
+function addNew(type){
+    let name, price, img;
+    if(type==='futomu'){
+        name=document.getElementById("newNameFutomu").value;
+        price=parseInt(document.getElementById("newPriceFutomu").value);
+        img=document.getElementById("newImgFutomu").value || "img/futomu/default.jpg";
+    } else {
+        name=document.getElementById("newNameMotor").value;
+        price=parseInt(document.getElementById("newPriceMotor").value);
+        img=document.getElementById("newImgMotor").value || "img/imgengineblocks/default.jpg";
+    }
+    if(!name || !price){ alert("Hiányzó adat!"); return; }
 
-    if(!name || !price) { alert("Hiányzó adat!"); return; }
+    const newItem = {id: Date.now(), name:name, price:price, img:img};
+    if(type==='futomu') futomu_products.push(newItem);
+    else motor_products.push(newItem);
 
-    products.push({
-        id: Date.now(),
-        name: name,
-        price: price,
-        img: img
-    });
-
-    save();
+    save(type);
     loadAdmin();
 
-    document.getElementById("newName").value = "";
-    document.getElementById("newPrice").value = "";
-    document.getElementById("newImg").value = "";
+    // Űrlap ürítése
+    if(type==='futomu'){ document.getElementById("newNameFutomu").value=""; document.getElementById("newPriceFutomu").value=""; document.getElementById("newImgFutomu").value=""; }
+    else{ document.getElementById("newNameMotor").value=""; document.getElementById("newPriceMotor").value=""; document.getElementById("newImgMotor").value=""; }
 
     alert("Termék hozzáadva!");
 }
 
+// Betöltés induláskor
 loadAdmin();
 </script>
 
 </body>
 </html>
+
+
 
